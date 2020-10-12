@@ -1,4 +1,4 @@
-# geisinger-echo-mortality
+# Echo mortality model applied to Stanford Dataset
 Demo of Geisinger's trained models applied to Stanford Ouyangs Dataset
 
 
