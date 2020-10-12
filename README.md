@@ -1,5 +1,8 @@
 # Echo mortality model applied to Stanford Dataset
-Demo of Geisinger's trained models applied to Stanford Ouyangs Dataset
+Demo of Geisinger's trained models applied to Stanford Dataset [1]
+
+[1] Video-based AI for beat-to-beat assessment of cardiac function.
+David Ouyang, Bryan He, Amirata Ghorbani, Neal Yuan, Joseph Ebinger, Curt P. Langlotz, Paul A. Heidenreich, Robert A. Harrington, David H. Liang, Euan A. Ashley, and James Y. Zou. Nature (2020)
 
 
 1. Obtain Stanford Dataset
