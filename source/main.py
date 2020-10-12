@@ -3,6 +3,8 @@ import cv2
 import os
 import sys
 import tensorflow as tf
+import seaborn as sns
+import matplotlib.pyplot as plt
 import pandas as pd
 from disiml import VideoSISO
 from scipy.signal import resample
@@ -137,6 +139,46 @@ class AVIGenerator(tf.keras.utils.Sequence):
 
         return X,y
 
+
+def plot():
+    df =  pd.read_csv('FileList_predicted.csv')
+  
+    sns.set(style="whitegrid")
+    df['EF_Group'] = pd.cut(df.EF,[0,35,50,65,80,100])
+    BAR2 = (225/255, 221/255, 191/255)
+    BAR3 = (76/255, 131/255, 122/255)
+    TCOL = (200/255, 200/255, 200/255)
+
+    fig,ax1 = plt.subplots(1)
+
+    sns.set(style="whitegrid", font='serif')
+
+    sns.boxplot(x="EF_Group", y="Pred", data=df, palette="Set1", ax=ax1, width=.5, whis=1, fliersize=1, notch=True)
+    face_color = (210/255, 194/255, 149/255)
+    edge_color = (140/255, 21/255, 21/255)
+    for i,artist in enumerate(ax1.artists):
+        # Set the linecolor on the artist to the facecolor, and set the facecolor to None
+        col = artist.get_facecolor()
+        artist.set_edgecolor(edge_color)
+        artist.set_facecolor(face_color)
+
+        # Each box has 6 associated Line2D objects (to make the whiskers, fliers, etc.)
+        # Loop over them here, and use the same colour as above
+        for j in range(i*6,i*6+6):
+            line = ax1.lines[j]
+            line.set_color(edge_color)
+            line.set_mfc(edge_color)
+            line.set_mec(edge_color)
+
+    # sns.despine(ax=ax1)
+    ax1.set_xlabel('Ejection Fraction', fontsize=16)
+    ax1.set_ylabel('AP4 Risk Score', fontsize=16)
+    ax1.set_ylim(0,1)
+    plt.savefig('stanford_risk_vs_ef.pdf',
+                bbox_inches="tight",
+                # transparent=True,
+            )
+
 if __name__=='__main__':
 
     echonet_path = sys.argv[1]
@@ -156,4 +198,4 @@ if __name__=='__main__':
     data['Pred']= preds
     data['BinPred']= preds>0.5
     data.to_csv('FileList_predicted.csv')
-    
+    plot()
