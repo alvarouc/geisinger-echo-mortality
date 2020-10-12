@@ -23,3 +23,9 @@ Demo of Geisinger's trained models applied to Stanford Ouyangs Dataset
     At the root of the repository type `make run`
 
     This will open a docker container where the AP4 model will run 
+
+    Two files will be generated: 
+    - FileList_predicted.csv
+    - stanford_risk_vs_ef.pdf
+
+    
